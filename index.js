@@ -3,6 +3,7 @@ const multer = require('multer');
 const fs = require('fs');
 const s3 = require('./minioClient');
 const { PrismaClient } = require('@prisma/client');
+const cors = require('cors');
 
 require('dotenv').config();
 
@@ -11,6 +12,7 @@ const app = express();
 const upload = multer({ dest: 'uploads/' });
 
 app.use(express.json());
+app.use(cors());
 
 app.post('/upload', upload.single('image'), async (req, res) => {
   const { name, description } = req.body;
